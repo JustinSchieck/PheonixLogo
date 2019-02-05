@@ -40,17 +40,21 @@ var c = canvas.getContext('2d');
 
 
 
-function Circle(x, y, dx, dy, radius){
+function Circle(x, y, dx, dy, radius, color, border){
     this.x = x;
     this.y = y;
     this.dx = dx;
     this.dy = dy;
     this.radius = radius;
+    this.color = color;
+    this.border = border
     this.draw = function() {
         c.beginPath();
         c.arc(this.x, this.y, this.radius, 0, Math.PI * 2 , false);
-        c.strokeStyle = 'purple';
+        c.strokeStyle = this.border;
         c.stroke();
+        c.fillStyle = this.color;
+        c.fill();
     }
 
     this.update = function() {
@@ -70,14 +74,16 @@ function Circle(x, y, dx, dy, radius){
 
 var circleArray = [];
 
-for(var i = 0; i < 100; i++){
+for(var i = 0; i < 500; i++){
     var radius = 30; 
     var x = Math.random() * (innerWidth - radius * 2) + radius;
     var y =  Math.random() * (innerHeight - radius * 2) + radius;
-    var dy = (Math.random() - 0.5) * 4;
-    var dx = (Math.random() - 0.5) * 4;
+    var dy = (Math.random() - 0.5) * 8;
+    var dx = (Math.random() - 0.5) * 8;
+    var colorRandom = "rgba(" + (Math.random() * 255) + "," + (Math.random() * 255) + "," + (Math.random() * 255) + "," + Math.random() + ")";
+    var border = "rgba(" + (Math.random() * 255) + "," + (Math.random() * 255) + "," + (Math.random() * 255) + "," + Math.random() + ")";
     
-    circleArray.push(new Circle(x, y, dx, dy, radius));
+    circleArray.push(new Circle(x, y, dx, dy, radius, colorRandom, border));
 }
 
 function animate(){
